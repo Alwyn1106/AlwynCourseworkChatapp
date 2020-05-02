@@ -18,7 +18,6 @@ public class EchoServer extends Thread {
             // Creates a new Server Socket for the clients to connect to
             ss = new ServerSocket(port);
             ID=1;
-            start();
 
         }
         catch (IOException e) {

@@ -38,9 +38,8 @@ public class ServerClientOrganiser extends Thread {
                 // send the message back
                 outp.println(name + ": " + inputLine);
                 System.out.println(name + " has received this via output stream: " + inputLine);
-                //sendTo.flush();
 
-                inputLine = inp.readLine();
+
             }
 
         } catch (IOException ioe) {

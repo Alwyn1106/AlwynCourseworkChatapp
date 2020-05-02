@@ -9,6 +9,7 @@ public class ChatServer extends Thread {
     public static void main(String[] args) {
         int port = 14001;
         EchoServer server = new EchoServer(port);
+        server.run();
     }
 
 }
