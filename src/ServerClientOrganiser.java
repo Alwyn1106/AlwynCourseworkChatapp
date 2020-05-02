@@ -33,11 +33,17 @@ public class ServerClientOrganiser extends Thread {
 
                 // accept a message, also blocks until it receives something through the input stream of the port
                 String inputLine = inp.readLine();
+                if(inputLine != null) {
 
-                System.out.println(name + " has sent this via input stream: " + inputLine);
-                // send the message back
-                outp.println(name + ": " + inputLine);
-                System.out.println(name + " has received this via output stream: " + inputLine);
+                    System.out.println(name + " has sent this via input stream: " + inputLine);
+                    // send the message back
+                    outp.println(name + ": " + inputLine);
+                    System.out.println(name + " has received this via output stream: " + inputLine);
+                }
+                else{
+                    System.out.println(name + " has disconnected from the server");
+                    break;
+                }
 
 
             }

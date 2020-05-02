@@ -54,6 +54,7 @@ public class EchoClient {
                 userInput = cmd.readLine();
             }
             System.out.println("Connection with the Server has been terminated");
+            socket.close();
         }
         catch (IOException ioe) {
             ioe.printStackTrace();
