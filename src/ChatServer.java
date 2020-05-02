@@ -1,6 +1,7 @@
 import java.lang.*;
 
 // This is a main for the Server Programme
+// this is a github test
 
 
 public class ChatServer extends Thread {
