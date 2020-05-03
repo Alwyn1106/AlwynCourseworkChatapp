@@ -8,13 +8,12 @@ public class EchoServer extends Thread {
     private int port;
     private ServerSocket ss;
     private int ID;
-    // This is the constructor for the Server. This assigns the port value passed by the argument and initiates the run function
 
+    // This is the constructor for the Server. This assigns the port value passed by the argument and initiates the run function
     public EchoServer(int port) {
         try {
             System.out.println("Waiting for clients...");
             this.port = port;
-
             // Creates a new Server Socket for the clients to connect to
             ss = new ServerSocket(port);
             ID=1;
