@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.lang.*;
 
-public class EchoClient {
+public class EchoClient extends Thread {
     private String address;
     private int port;
     private Socket socket;
@@ -17,7 +17,7 @@ public class EchoClient {
             this.address = address;
             this.port = port;
             socket = new Socket(address, port);
-            process();
+
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -25,7 +25,7 @@ public class EchoClient {
 
     }
 
-    private void process() {
+    public void run() {
         // networking code
         try
         {
