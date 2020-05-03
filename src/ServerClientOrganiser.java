@@ -60,7 +60,6 @@ public class ServerClientOrganiser extends Thread {
         try {
 
             int i;
-            System.out.println(clientlist.size());
             for (i = 0; i <= (clientlist.size()-1); i++) {
                 PrintWriter outp = new PrintWriter(
                         clientlist.get(i).getOutputStream(), true);

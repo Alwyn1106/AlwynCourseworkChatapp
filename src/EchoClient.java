@@ -1,8 +1,9 @@
-import java.io.BufferedReader;
+import  java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.lang.*;
 
 public class EchoClient {
     private String address;
@@ -29,12 +30,12 @@ public class EchoClient {
         try
         {
 
-            System.out.println("Please insert text to be echoed:");
+            System.out.println("Please insert text:");
             // forms output stream to the server into lines of text that can be read
-            PrintWriter serverOutput = new PrintWriter(
+            PrintWriter clientOutput = new PrintWriter(
             socket.getOutputStream(),true);
             // forms input stream from the server into lines of text that can be read
-            BufferedReader serverInput = new BufferedReader(
+            BufferedReader clientInput = new BufferedReader(
             new InputStreamReader(socket.getInputStream()));
             // forms input that is given to the system's command line into lines of text that can be read
             BufferedReader cmd = new BufferedReader(
@@ -46,9 +47,11 @@ public class EchoClient {
 
 
             while(!userInput.equals("quit")) {
-                serverOutput.println(userInput);
+
+                clientOutput.println(userInput);
+
                 // this is a blocking call waiting on the port's input stream before progressing the code
-                response = serverInput.readLine();
+                response = clientInput.readLine();
                 System.out.println(response);
                 // this is a blocking call that waits for an input from the command line
                 userInput = cmd.readLine();
