@@ -1,7 +1,7 @@
 // This is a main for the Client programme
 import java.lang.*;
 
-public class ClientMain extends Thread {
+public class ChatClient extends Thread {
 
     public static void main(String[] args) {
 

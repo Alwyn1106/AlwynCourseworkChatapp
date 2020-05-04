@@ -22,9 +22,6 @@ public class ClientOutputReader extends Thread {
                     new InputStreamReader(socket.getInputStream()));
 
 
-            PrintWriter clientOutput = new PrintWriter(
-                    socket.getOutputStream(), true);
-
             // naming variables for user input and what the server will send back
 
             fromServer = clientInput.readLine();
