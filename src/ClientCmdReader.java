@@ -4,11 +4,11 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ClientInp extends Thread{
+public class ClientCmdReader extends Thread{
 
     private Socket socket;
 
-    public ClientInp (Socket socket) {
+    public ClientCmdReader(Socket socket) {
 
         this.socket = socket;
 

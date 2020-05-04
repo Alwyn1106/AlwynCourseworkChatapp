@@ -1,7 +1,4 @@
-import  java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.lang.*;
 
@@ -32,8 +29,11 @@ public class EchoClient extends Thread {
             System.out.println("Please insert text:");
             // forms output stream to the server into lines of text that can be read
 
-                ClientInp inp = new ClientInp(socket);
+                ClientCmdReader inp = new ClientCmdReader(socket);
                 inp.start();
+
+                ClientOutputReader outreader = new ClientOutputReader(socket);
+                outreader.start();
 
         }
 
