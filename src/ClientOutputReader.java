@@ -13,8 +13,7 @@ public class ClientOutputReader extends Thread {
         this.socket = socket;
 
     }
-
-    public void run(){
+    public void run() {
 
         try {
 
@@ -26,15 +25,14 @@ public class ClientOutputReader extends Thread {
 
             fromServer = clientInput.readLine();
 
-            while(true){
+            while(true) {
                 System.out.println(fromServer);
                 fromServer = clientInput.readLine();
+
             }
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             ioe.printStackTrace();
         }
-
 
     }
 }

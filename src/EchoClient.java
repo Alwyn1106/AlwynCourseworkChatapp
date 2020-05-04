@@ -35,6 +35,8 @@ public class EchoClient extends Thread {
                 ClientOutputReader outreader = new ClientOutputReader(socket);
                 outreader.start();
 
+
+
         }
 
 

@@ -9,14 +9,22 @@ public class ServerClientOrganiser extends Thread {
 
     private Socket s;
     private String name;
-    private static ArrayList<Socket> clientlist = new ArrayList<>();
+    private static ArrayList<ServerClientOrganiser> clientlist = new ArrayList<>();
 
     public ServerClientOrganiser(Socket s, String name){
         this.s = s;
         this.name = name;
-        clientlist.add(s);
+        clientlist.add(this);
 
 
+    }
+
+    public Socket getSocket(){
+        return s;
+    }
+
+    public String getClientName(){
+        return name;
     }
 
     @Override
@@ -63,9 +71,9 @@ public class ServerClientOrganiser extends Thread {
             int i;
             for (i = 0; i <= (clientlist.size()-1); i++) {
                 PrintWriter outp = new PrintWriter(
-                        clientlist.get(i).getOutputStream(), true);
+                        clientlist.get(i).getSocket().getOutputStream(), true);
                 outp.println(output);
-                System.out.println("client-" + (i+1) + " has received this via output stream: " + output);
+                System.out.println(clientlist.get(i).getClientName() + " has received this via output stream: " + output);
             }
         }
         catch(IOException ioe)

@@ -29,17 +29,18 @@ public class ClientCmdReader extends Thread{
 
             // naming variables for user input and what the server will send back
             String userInput = cmd.readLine();
-            String response;
+            //String response;
 
             while(!userInput.equals("quit")) {
 
                 clientOutput.println(userInput);
 
                 // this is a blocking call waiting on the port's input stream before progressing the code
-                response = clientInput.readLine();
+                String response = clientInput.readLine();
                 System.out.println(response);
                 // this is a blocking call that waits for an input from the command line
                 userInput = cmd.readLine();
+
             }
             System.out.println("Connection with the Server has been terminated");
             socket.close();
