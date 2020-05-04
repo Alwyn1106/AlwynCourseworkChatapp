@@ -15,10 +15,11 @@ public class ServerClientOrganiser extends Thread {
         this.s = s;
         this.name = name;
         clientlist.add(s);
-        //run();
+
 
     }
 
+    @Override
     public void run() {
         try {
 

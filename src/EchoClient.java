@@ -25,6 +25,7 @@ public class EchoClient extends Thread {
 
     }
 
+    @Override
     public void run() {
         // networking code
         try
