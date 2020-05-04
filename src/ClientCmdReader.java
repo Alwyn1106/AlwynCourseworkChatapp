@@ -7,6 +7,7 @@ import java.net.Socket;
 public class ClientCmdReader extends Thread{
 
     private Socket socket;
+    private volatile boolean exit = false;
 
     public ClientCmdReader(Socket socket) {
 
@@ -18,8 +19,7 @@ public class ClientCmdReader extends Thread{
 
         try{
 
-            BufferedReader clientInput = new BufferedReader(
-                    new InputStreamReader(socket.getInputStream()));
+
             // forms input that is given to the system's command line into lines of text that can be read
             BufferedReader cmd = new BufferedReader(
                     new InputStreamReader(System.in));
@@ -29,24 +29,41 @@ public class ClientCmdReader extends Thread{
 
             // naming variables for user input and what the server will send back
             String userInput = cmd.readLine();
-            //String response;
+            //
+           // String response;
 
-            while(!userInput.equals("quit")) {
+            while(!exit) {
 
-                clientOutput.println(userInput);
+                if(userInput.equals("quit")) {
+                    System.out.println("Connection with the Server has been terminated");
+                    socket.close();
+                    setExit();
 
-                // this is a blocking call waiting on the port's input stream before progressing the code
-                String response = clientInput.readLine();
-                System.out.println(response);
-                // this is a blocking call that waits for an input from the command line
-                userInput = cmd.readLine();
+                }
+                else {
+
+
+                    clientOutput.println(userInput);
+
+                    // this is a blocking call waiting on the port's input stream before progressing the code
+
+                    System.out.println(EchoClient.readin(socket));
+                    // this is a blocking call that waits for an input from the command line
+                    userInput = cmd.readLine();
+
+                }
+
 
             }
-            System.out.println("Connection with the Server has been terminated");
-            socket.close();
+
         }
         catch (IOException ioe) {
             ioe.printStackTrace();
         }
     }
+
+    public void setExit(){
+        exit = true;
+    }
+
 }

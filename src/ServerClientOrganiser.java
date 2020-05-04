@@ -54,11 +54,13 @@ public class ServerClientOrganiser extends Thread {
                 }
                 else{
                     System.out.println(name + " has disconnected from the server");
+                    clientlist.remove(this);
                     break;
                 }
 
 
             }
+
 
         } catch (IOException ioe) {
             ioe.printStackTrace();

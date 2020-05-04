@@ -15,24 +15,28 @@ public class ClientOutputReader extends Thread {
     }
     public void run() {
 
-        try {
+            try {
 
-            BufferedReader clientInput = new BufferedReader(
-                    new InputStreamReader(socket.getInputStream()));
+                BufferedReader clientInput = new BufferedReader(
+                        new InputStreamReader(socket.getInputStream()));
 
 
-            // naming variables for user input and what the server will send back
+                // naming variables for user input and what the server will send back
 
-            fromServer = clientInput.readLine();
-
-            while(true) {
-                System.out.println(fromServer);
                 fromServer = clientInput.readLine();
 
+                while (true) {
+
+                    System.out.println(fromServer);
+                    fromServer = clientInput.readLine();
+
+
+
+                }
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
             }
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
         }
 
-    }
+
 }
