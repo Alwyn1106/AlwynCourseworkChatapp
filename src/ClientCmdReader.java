@@ -32,12 +32,11 @@ public class ClientCmdReader extends Thread{
             //
            // String response;
 
-            while(!exit) {
 
                 if(userInput.equals("quit")) {
                     System.out.println("Connection with the Server has been terminated");
                     socket.close();
-                    setExit();
+
 
                 }
                 else {
@@ -51,10 +50,11 @@ public class ClientCmdReader extends Thread{
                     // this is a blocking call that waits for an input from the command line
                     userInput = cmd.readLine();
 
+
                 }
 
 
-            }
+
 
         }
         catch (IOException ioe) {

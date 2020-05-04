@@ -15,10 +15,12 @@ public class EchoClient extends Thread {
         BufferedReader clientInput = new BufferedReader(
                 new InputStreamReader(s.getInputStream()));
 
-        String response = clientInput.readLine();
-        return response;
+        return clientInput.readLine();
+
 
     }
+
+
     // This is the constructor for the client. This assigns the two values passed to it by the argument.
 
     public EchoClient(String address, int port) {
@@ -42,15 +44,24 @@ public class EchoClient extends Thread {
         // networking code
 
         System.out.println("Please insert text:");
-            // forms output stream to the server into lines of text that can be read
 
         ClientCmdReader inp = new ClientCmdReader(socket);
         ClientOutputReader outreader = new ClientOutputReader(socket);
+            // forms output stream to the server into lines of text that can be read
 
-        inp.start();
-        outreader.start();
+        while(true) {
 
+            inp.start();
+            outreader.start();
 
+            try {
+                inp.join();
+                outreader.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
 
 
     }
