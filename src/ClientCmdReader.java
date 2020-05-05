@@ -7,7 +7,7 @@ import java.net.Socket;
 public class ClientCmdReader extends Thread{
 
     private Socket socket;
-    private volatile boolean exit = false;
+    private volatile boolean stop = false;
 
     public ClientCmdReader(Socket socket) {
 
@@ -32,17 +32,21 @@ public class ClientCmdReader extends Thread{
 
 
                 if (userInput.equals("quit")) {
-                    System.out.println("Connection with the Server has been terminated");
-                    socket.close();
+                    EchoClient.setExit();
+                    //break;
                 }
                 else {
 
-                    while(true) {
+                    while(!stop) {
                         clientOutput.println(userInput);
                         // this is a blocking call that waits for an input from the command line
                         userInput = cmd.readLine();
-                    }
 
+                        if (userInput.equals("quit")) {
+                            EchoClient.setExit();
+                            stopRun();
+                        }
+                    }
 
                 }
             } catch (IOException ioe) {
@@ -50,8 +54,10 @@ public class ClientCmdReader extends Thread{
             }
     }
 
-    public void setExit(){
-        exit = true;
+
+    public void stopRun(){
+        stop = true;
+
     }
 
 }

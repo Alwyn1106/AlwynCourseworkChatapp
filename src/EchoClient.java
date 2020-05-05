@@ -4,21 +4,14 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.lang.*;
+import java.net.SocketException;
 
 public class EchoClient extends Thread {
     private String address;
     private int port;
     private Socket socket;
+    private static boolean exit = false;
 
-    public static synchronized String readin(Socket s) throws IOException {
-
-        BufferedReader clientInput = new BufferedReader(
-                new InputStreamReader(s.getInputStream()));
-
-        return clientInput.readLine();
-
-
-    }
 
 
     // This is the constructor for the client. This assigns the two values passed to it by the argument.
@@ -35,6 +28,11 @@ public class EchoClient extends Thread {
         }
 
     }
+
+    public static void setExit(){
+        exit = true;
+    }
+
     public Socket retrieveSocket(){
         return socket;
     }
@@ -54,15 +52,28 @@ public class EchoClient extends Thread {
             inp.start();
             outreader.start();
 
-            try {
-                inp.join();
-                outreader.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        try {
+            inp.join();
+            //outreader.join();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (exit){
+            System.out.println("Connection with server is being terminated...");
+            outreader.stopRun();
+            try{
+                socket.close();
+            } catch (IOException e) {
+                System.out.println("terminated");
             }
+            ServerClientOrganiser.setExit();
+        }
 
 
-    }
+        }
+
 
 
 }

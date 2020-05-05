@@ -10,6 +10,7 @@ public class ServerClientOrganiser extends Thread {
     private Socket s;
     private String name;
     private static ArrayList<ServerClientOrganiser> clientlist = new ArrayList<>();
+    private static boolean exit = false;
 
     public ServerClientOrganiser(Socket s, String name){
         this.s = s;
@@ -18,6 +19,8 @@ public class ServerClientOrganiser extends Thread {
 
 
     }
+
+    public static void setExit() { exit = false; }
 
     public Socket getSocket(){
         return s;
@@ -31,6 +34,8 @@ public class ServerClientOrganiser extends Thread {
     public void run() {
         try {
 
+
+
             System.out.println(name + " connected on " + s);
 
 
@@ -39,27 +44,25 @@ public class ServerClientOrganiser extends Thread {
             BufferedReader inp = new BufferedReader(
                     new InputStreamReader(s.getInputStream()));
 
+            String inputLine = inp.readLine();
 
-
-            while(true) {
+            while(!exit) {
 
                 // accept a message, also blocks until it receives something through the input stream of the port
-                String inputLine = inp.readLine();
-                if(inputLine != null) {
 
+                    if(inputLine == null){
+                        break;
+                    }
                     System.out.println(name + " has sent this via input stream: " + inputLine);
                     // send the message back
                     sendtoclients(name + ": " + inputLine);
-
-                }
-                else{
-                    System.out.println(name + " has disconnected from the server");
-                    clientlist.remove(this);
-                    break;
-                }
-
+                    inputLine = inp.readLine();
 
             }
+
+            clientlist.remove(this);
+            System.out.println(name + " has disconnected from the server");
+
 
 
         } catch (IOException ioe) {

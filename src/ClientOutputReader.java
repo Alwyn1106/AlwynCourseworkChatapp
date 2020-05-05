@@ -8,6 +8,7 @@ public class ClientOutputReader extends Thread {
 
     private Socket socket;
     private String fromServer;
+    private volatile boolean stop = false;
 
     public ClientOutputReader (Socket socket) {
         this.socket = socket;
@@ -17,15 +18,27 @@ public class ClientOutputReader extends Thread {
 
             try {
 
-                fromServer = EchoClient.readin(socket);
+                BufferedReader clientInput = new BufferedReader(
+                        new InputStreamReader(socket.getInputStream()));
 
-                while (true) {
+                fromServer = clientInput.readLine();
+
+
+                while (!stop) {
                     System.out.println(fromServer);
-                    fromServer = EchoClient.readin(socket);
+                    fromServer = clientInput.readLine();
                 }
 
-            } catch (IOException ioe) {
+
+            }
+
+            catch (IOException ioe) {
                 ioe.printStackTrace();
             }
+
+    }
+
+    public void stopRun(){
+        stop = true;
     }
 }
