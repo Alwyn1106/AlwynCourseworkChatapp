@@ -32,6 +32,8 @@ public class ServerClientOrganiser extends Thread {
 
     @Override
     public void run() {
+        ServerCmdReader serverinp = new ServerCmdReader();
+        serverinp.start();
         try {
 
 
@@ -79,6 +81,22 @@ public class ServerClientOrganiser extends Thread {
                         clientlist.get(i).getSocket().getOutputStream(), true);
                 outp.println(output);
                 System.out.println(clientlist.get(i).getClientName() + " has received this via output stream: " + output);
+            }
+        }
+        catch(IOException ioe)
+        {
+            ioe.printStackTrace();
+        }
+
+    }
+
+    public static void CloseClients() {
+        try {
+
+            int i;
+            for (i = 0; i <= (clientlist.size()-1); i++) {
+
+                        clientlist.get(i).getSocket().close();
             }
         }
         catch(IOException ioe)

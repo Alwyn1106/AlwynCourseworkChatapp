@@ -33,7 +33,7 @@ public class ClientOutputReader extends Thread {
             }
 
             catch (IOException ioe) {
-                ioe.printStackTrace();
+                System.out.println("Connection Terminated by Client");
             }
 
     }

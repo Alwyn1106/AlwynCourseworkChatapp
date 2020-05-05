@@ -16,6 +16,7 @@ public class EchoServer extends Thread {
 
     // This is the constructor for the Server. This assigns the port value passed by the argument and initiates the run function
     public EchoServer(int port) {
+
         try {
             System.out.println("Waiting for clients...");
             this.port = port;
