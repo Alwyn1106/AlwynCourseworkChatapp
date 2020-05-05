@@ -22,11 +22,18 @@ public class ClientOutputReader extends Thread {
                         new InputStreamReader(socket.getInputStream()));
 
                 fromServer = clientInput.readLine();
+                if (fromServer.equals(null)) {
+                }
+                else {
 
 
-                while (!stop) {
-                    System.out.println(fromServer);
-                    fromServer = clientInput.readLine();
+                    while (!stop) {
+                        System.out.println(fromServer);
+                        fromServer = clientInput.readLine();
+                        if (fromServer.equals(null)) {
+                            break;
+                        }
+                    }
                 }
 
 
