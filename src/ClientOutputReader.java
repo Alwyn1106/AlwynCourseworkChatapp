@@ -18,13 +18,14 @@ public class ClientOutputReader extends Thread {
             try {
 
                 fromServer = EchoClient.readin(socket);
-                System.out.println(fromServer);
-                fromServer = EchoClient.readin(socket);
+
+                while (true) {
+                    System.out.println(fromServer);
+                    fromServer = EchoClient.readin(socket);
+                }
 
             } catch (IOException ioe) {
                 ioe.printStackTrace();
             }
-        }
-
-
+    }
 }

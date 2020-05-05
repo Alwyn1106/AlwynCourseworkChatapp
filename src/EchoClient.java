@@ -49,7 +49,7 @@ public class EchoClient extends Thread {
         ClientOutputReader outreader = new ClientOutputReader(socket);
             // forms output stream to the server into lines of text that can be read
 
-        while(true) {
+
 
             inp.start();
             outreader.start();
@@ -60,8 +60,6 @@ public class EchoClient extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
-        }
 
 
     }
