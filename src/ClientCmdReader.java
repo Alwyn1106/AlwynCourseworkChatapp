@@ -33,7 +33,7 @@ public class ClientCmdReader extends Thread{
 
                 if (userInput.equals("quit")) {
                     EchoClient.setExit();
-                    //break;
+
                 }
                 else {
 
@@ -50,6 +50,7 @@ public class ClientCmdReader extends Thread{
 
                 }
                 System.out.println("The client has opted to terminate connection with the server...");
+                System.exit(0);
 
             } catch (IOException ioe) {
                 ioe.printStackTrace();

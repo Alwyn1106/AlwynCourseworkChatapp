@@ -38,10 +38,11 @@ public class ClientOutputReader extends Thread {
                 }
 
             } catch (IOException ioe) {
-                System.out.println("Finished Termination - client disconnected");
+                ioe.printStackTrace();
             }
             catch (NullPointerException ne){
                 System.out.println("The Server has been shut down and this client will now be closed");
+                System.exit(0);
             }
 
     }

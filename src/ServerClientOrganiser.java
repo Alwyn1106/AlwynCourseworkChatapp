@@ -20,7 +20,7 @@ public class ServerClientOrganiser extends Thread {
 
     }
 
-    public static void setExit() { exit = false; }
+    public static void setExit() { exit = true; }
 
     public Socket getSocket(){
         return s;
