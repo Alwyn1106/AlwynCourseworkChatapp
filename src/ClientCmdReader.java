@@ -49,6 +49,8 @@ public class ClientCmdReader extends Thread{
                     }
 
                 }
+                System.out.println("The client has opted to terminate connection with the server...");
+
             } catch (IOException ioe) {
                 ioe.printStackTrace();
             }
@@ -57,6 +59,16 @@ public class ClientCmdReader extends Thread{
 
     public void stopRun(){
         stop = true;
+
+    }
+
+    public void closeCmdReader() {
+        try {
+            socket.getOutputStream().close();
+        }
+        catch(IOException ioe){
+            ioe.printStackTrace();
+        }
 
     }
 

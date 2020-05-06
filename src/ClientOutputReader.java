@@ -3,12 +3,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class ClientOutputReader extends Thread {
 
     private Socket socket;
     private String fromServer;
-    private volatile boolean stop = false;
+
 
     public ClientOutputReader (Socket socket) {
         this.socket = socket;
@@ -27,7 +28,7 @@ public class ClientOutputReader extends Thread {
                 else {
 
 
-                    while (!stop) {
+                    while (true) {
                         System.out.println(fromServer);
                         fromServer = clientInput.readLine();
                         if (fromServer.equals(null)) {
@@ -36,16 +37,23 @@ public class ClientOutputReader extends Thread {
                     }
                 }
 
-
+            } catch (IOException ioe) {
+                System.out.println("Finished Termination - client disconnected");
             }
-
-            catch (IOException ioe) {
-                System.out.println("Connection Terminated by Client");
+            catch (NullPointerException ne){
+                System.out.println("The Server has been shut down and this client will now be closed");
             }
 
     }
+    public void closeInputStream() {
+        try {
+            socket.getInputStream().close();
+        }
+        catch(IOException ioe){
+            ioe.printStackTrace();
+        }
 
-    public void stopRun(){
-        stop = true;
     }
+
+
 }

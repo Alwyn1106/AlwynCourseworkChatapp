@@ -15,7 +15,7 @@ public class ServerClientOrganiser extends Thread {
     public ServerClientOrganiser(Socket s, String name){
         this.s = s;
         this.name = name;
-        clientlist.add(this);
+        getClientList().add(this);
 
 
     }
@@ -68,7 +68,7 @@ public class ServerClientOrganiser extends Thread {
 
 
         } catch (IOException ioe) {
-            ioe.printStackTrace();
+           System.out.println(name + " has disconnected, the client socket has been closed");
         }
     }
 
@@ -76,11 +76,12 @@ public class ServerClientOrganiser extends Thread {
         try {
 
             int i;
-            for (i = 0; i <= (clientlist.size()-1); i++) {
+
+            for (i = 0; i <= (getClientList().size()-1); i++) {
                 PrintWriter outp = new PrintWriter(
-                        clientlist.get(i).getSocket().getOutputStream(), true);
+                        getClientList().get(i).getSocket().getOutputStream(), true);
                 outp.println(output);
-                System.out.println(clientlist.get(i).getClientName() + " has received this via output stream: " + output);
+                System.out.println(getClientList().get(i).getClientName() + " has received this via output stream: " + output);
             }
         }
         catch(IOException ioe)
@@ -94,15 +95,28 @@ public class ServerClientOrganiser extends Thread {
         try {
 
             int i;
-            for (i = 0; i <= (clientlist.size()-1); i++) {
 
-                        clientlist.get(i).getSocket().close();
+
+            for (i = 0; i <= (getClientList().size()-1); i++) {
+
+                System.out.println(getClientList().get(i).getName() + " has been disconnected");
+                getClientList().get(i).getSocket().close();
+
             }
+
+
+
+
         }
         catch(IOException ioe)
         {
             ioe.printStackTrace();
         }
+
+    }
+
+    public static synchronized ArrayList<ServerClientOrganiser> getClientList() {
+        return clientlist;
 
     }
 

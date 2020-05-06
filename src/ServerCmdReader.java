@@ -9,6 +9,9 @@ public class ServerCmdReader extends Thread {
     public ServerCmdReader() {
 
     }
+
+
+
     public void run(){
 
         BufferedReader cmd = new BufferedReader(
@@ -19,13 +22,17 @@ public class ServerCmdReader extends Thread {
             if (userInput.equals("EXIT")) {
                 System.out.println("Closing Server...");
                 ServerClientOrganiser.CloseClients();
+                //System.exit(0);
             }
             else {
                 while (true) {
                     userInput = cmd.readLine();
                     if (userInput.equals("EXIT")) {
+
+
                         System.out.println("Closing Server...");
                         ServerClientOrganiser.CloseClients();
+
 
                     }
                 }
@@ -33,6 +40,8 @@ public class ServerCmdReader extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.exit(0);
+
 
     }
 
