@@ -22,7 +22,7 @@ public class ServerCmdReader extends Thread {
             if (userInput.equals("EXIT")) {
                 System.out.println("Closing Server...");
                 ServerClientOrganiser.CloseClients();
-                //System.exit(0);
+
             }
             else {
                 while (true) {
@@ -38,6 +38,7 @@ public class ServerCmdReader extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("Shutdown Complete...");
         System.exit(0);
 
 

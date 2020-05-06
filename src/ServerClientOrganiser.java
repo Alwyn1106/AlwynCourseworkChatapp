@@ -51,18 +51,13 @@ public class ServerClientOrganiser extends Thread {
 
                 // accept a message, also blocks until it receives something through the input stream of the port
 
-                    if(inputLine == null){
-                        break;
-                    }
+
                     System.out.println(name + " has sent this via input stream: " + inputLine);
                     // send the message back
                     sendtoclients(name + ": " + inputLine);
                     inputLine = inp.readLine();
 
             }
-
-            getClientList().remove(this);
-            System.out.println(name + " has disconnected from the server");
 
 
 
