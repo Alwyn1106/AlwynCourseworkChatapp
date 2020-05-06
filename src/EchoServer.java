@@ -32,6 +32,8 @@ public class EchoServer extends Thread {
     }
     @Override
     public void run() {
+        ServerCmdReader serverinp = new ServerCmdReader();
+        serverinp.start();
 
         try
         {

@@ -32,8 +32,7 @@ public class ServerClientOrganiser extends Thread {
 
     @Override
     public void run() {
-        ServerCmdReader serverinp = new ServerCmdReader();
-        serverinp.start();
+
         try {
 
 
@@ -62,7 +61,7 @@ public class ServerClientOrganiser extends Thread {
 
             }
 
-            clientlist.remove(this);
+            getClientList().remove(this);
             System.out.println(name + " has disconnected from the server");
 
 
@@ -99,7 +98,7 @@ public class ServerClientOrganiser extends Thread {
 
             for (i = 0; i <= (getClientList().size()-1); i++) {
 
-                System.out.println(getClientList().get(i).getName() + " has been disconnected");
+                System.out.println(getClientList().get(i).getClientName() + " on " + getClientList().get(i).getSocket() + " has been disconnected");
                 getClientList().get(i).getSocket().close();
 
             }
