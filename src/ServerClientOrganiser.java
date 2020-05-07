@@ -62,7 +62,7 @@ public class ServerClientOrganiser extends Thread {
 
 
         } catch (IOException ioe) {
-           getClientList().remove(this);
+
            System.out.println(getClientName() + " on " + getSocket() + " has been disconnected");
         }
     }
