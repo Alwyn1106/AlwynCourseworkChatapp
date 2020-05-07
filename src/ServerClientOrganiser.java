@@ -58,6 +58,7 @@ public class ServerClientOrganiser extends Thread {
                     inputLine = inp.readLine();
 
             }
+            System.out.println(getClientName() + " on " + getSocket() + " has been disconnected");
 
 
 
@@ -67,7 +68,9 @@ public class ServerClientOrganiser extends Thread {
 
         }
         finally {
+
             getClientList().remove(this);
+
         }
     }
 

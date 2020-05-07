@@ -19,23 +19,18 @@ public class ServerCmdReader extends Thread {
 
         try {
             String userInput = cmd.readLine();
-            if (userInput.equals("EXIT")) {
-                System.out.println("Closing Server...");
-                ServerClientOrganiser.CloseClients();
 
-            }
-            else {
                 while (true) {
-                    userInput = cmd.readLine();
+
                     if (userInput.equals("EXIT")) {
                         System.out.println("Closing Server...");
                         ServerClientOrganiser.CloseClients();
-
-
+                        break;
                     }
+                    userInput = cmd.readLine();
                 }
-            }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         //System.out.println("Shutdown Complete...");
