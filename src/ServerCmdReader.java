@@ -38,7 +38,7 @@ public class ServerCmdReader extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Shutdown Complete...");
+        //System.out.println("Shutdown Complete...");
         System.exit(0);
 
 
