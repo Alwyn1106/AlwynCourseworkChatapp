@@ -24,7 +24,8 @@ public class ServerCmdReader extends Thread {
 
                     if (userInput.equals("EXIT")) {
                         System.out.println("Closing Server...");
-                        ServerClientOrganiser.CloseClients();
+                        EchoServer.CloseClients();
+
                         break;
                     }
                     userInput = cmd.readLine();

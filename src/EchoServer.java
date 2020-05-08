@@ -10,7 +10,7 @@ public class EchoServer extends Thread {
     private int port;
     private ServerSocket ss;
     private int ID;
-
+    private static ArrayList<ServerClientOrganiser> clientlist = new ArrayList<>();
 
 
 
@@ -41,7 +41,9 @@ public class EchoServer extends Thread {
                 // listen for client, blocks waiting for the client to be found and names the socket that is connected with the client before progressing code
                 Socket client = ss.accept();
                 ID++;
-                new ServerClientOrganiser(client, "client-" + ID).start();
+                ServerClientOrganiser sco = new ServerClientOrganiser(client, "client-" + ID);
+                getClientList().add(sco);
+                sco.start();
 
             }
         }
@@ -51,5 +53,67 @@ public class EchoServer extends Thread {
         }
     }
 
+    public static synchronized ArrayList<ServerClientOrganiser> getClientList() {
+        return clientlist;
+
+    }
+
+    public static void CloseClients() {
+        try {
+
+            int i;
+
+
+            for (i = 0; i <= (getClientList().size()-1); i++) {
+
+
+                getClientList().get(i).getSocket().close();
+                System.out.println(getClientList().get(i).getClientName() + " on " + getClientList().get(i).getSocket() + " has been disconnected as part of controlled shut down");
+
+            }
+
+
+        }
+        catch(IOException ioe)
+        {
+            ioe.printStackTrace();
+        }
+
+    }
+
+    public static void sendtoclients(String output) {
+        try {
+
+            int i;
+
+            for (i = 0; i <= (getClientList().size()-1); i++) {
+                PrintWriter outp = new PrintWriter(
+                        getClientList().get(i).getSocket().getOutputStream(), true);
+                outp.println(output);
+                System.out.println(getClientList().get(i).getClientName() + " has received this via output stream: " + output);
+            }
+        }
+        catch(IOException ioe)
+        {
+            ioe.printStackTrace();
+        }
+
+    }
+
+    public static void RemoveAClient(String name) throws IOException {
+
+
+            int i;
+
+            for (i = 0; i <= (getClientList().size() - 1); i++) {
+                if (getClientList().get(i).getClientName() == name) {
+                    System.out.println(getClientList().get(i).getClientName());
+                    getClientList().get(i).getSocket().close();
+                    getClientList().remove(i);
+
+                }
+            }
+
+    }
 
 }

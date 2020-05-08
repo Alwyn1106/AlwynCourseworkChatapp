@@ -9,13 +9,12 @@ public class ServerClientOrganiser extends Thread {
 
     private Socket s;
     private String name;
-    private static ArrayList<ServerClientOrganiser> clientlist = new ArrayList<>();
+
     private static boolean exit = false;
 
     public ServerClientOrganiser(Socket s, String name){
         this.s = s;
         this.name = name;
-        getClientList().add(this);
 
 
     }
@@ -54,73 +53,32 @@ public class ServerClientOrganiser extends Thread {
 
                     System.out.println(name + " has sent this via input stream: " + inputLine);
                     // send the message back
-                    sendtoclients(name + ": " + inputLine);
+                    EchoServer.sendtoclients(name + ": " + inputLine);
                     inputLine = inp.readLine();
 
             }
-            System.out.println(getClientName() + " on " + getSocket() + " has been disconnected");
+            System.out.println(name + " on " + getSocket() + " has been disconnected");
+
 
 
 
         } catch (IOException ioe) {
 
-           System.out.println(getClientName() + " on " + getSocket() + " has been disconnected");
-
-        }
-        finally {
-
-            getClientList().remove(this);
-
-        }
-    }
-
-    public void sendtoclients(String output) {
-        try {
-
-            int i;
-
-            for (i = 0; i <= (getClientList().size()-1); i++) {
-                PrintWriter outp = new PrintWriter(
-                        getClientList().get(i).getSocket().getOutputStream(), true);
-                outp.println(output);
-                System.out.println(getClientList().get(i).getClientName() + " has received this via output stream: " + output);
-            }
-        }
-        catch(IOException ioe)
-        {
-            ioe.printStackTrace();
-        }
-
-    }
-
-    public static void CloseClients() {
-        try {
-
-            int i;
-
-
-            for (i = 0; i <= (getClientList().size()-1); i++) {
-
-
-                getClientList().get(i).getSocket().close();
-
+           System.out.println(name + " on " + getSocket() + " has been disconnected");
+            try {
+                EchoServer.RemoveAClient(getClientName());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
-
-
-
-        }
-        catch(IOException ioe)
-        {
-            ioe.printStackTrace();
         }
 
     }
 
-    public static synchronized ArrayList<ServerClientOrganiser> getClientList() {
-        return clientlist;
 
-    }
+
+
+
 
 
 }
