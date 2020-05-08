@@ -57,28 +57,17 @@ public class ServerClientOrganiser extends Thread {
                     inputLine = inp.readLine();
 
             }
-            System.out.println(name + " on " + getSocket() + " has been disconnected");
 
 
 
 
         } catch (IOException ioe) {
 
-           System.out.println(name + " on " + getSocket() + " has been disconnected");
-            try {
+           System.out.println(name + " has been terminated from the client's side");
                 EchoServer.RemoveAClient(getClientName());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
         }
 
     }
-
-
-
-
-
 
 
 }

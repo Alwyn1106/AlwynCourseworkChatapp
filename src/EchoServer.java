@@ -58,28 +58,7 @@ public class EchoServer extends Thread {
 
     }
 
-    public static void CloseClients() {
-        try {
 
-            int i;
-
-
-            for (i = 0; i <= (getClientList().size()-1); i++) {
-
-
-                getClientList().get(i).getSocket().close();
-                System.out.println(getClientList().get(i).getClientName() + " on " + getClientList().get(i).getSocket() + " has been disconnected as part of controlled shut down");
-
-            }
-
-
-        }
-        catch(IOException ioe)
-        {
-            ioe.printStackTrace();
-        }
-
-    }
 
     public static void sendtoclients(String output) {
         try {
@@ -100,20 +79,41 @@ public class EchoServer extends Thread {
 
     }
 
-    public static void RemoveAClient(String name) throws IOException {
+    public static synchronized void RemoveAClient(String name) {
+
+        try {
 
 
             int i;
 
             for (i = 0; i <= (getClientList().size() - 1); i++) {
                 if (getClientList().get(i).getClientName() == name) {
-                    System.out.println(getClientList().get(i).getClientName());
+                    System.out.println(name + " on " + getClientList().get(i).getSocket() + " has been disconnected");
                     getClientList().get(i).getSocket().close();
                     getClientList().remove(i);
 
                 }
             }
 
+        }
+        catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
+    }
+
+    public static void CloseClients() {
+
+
+            int i;
+
+
+            for (i = 0; i <= (getClientList().size()-1); i++) {
+
+                RemoveAClient(getClientList().get(i).getClientName());
+                i--;
+
+            }
     }
 
 }
