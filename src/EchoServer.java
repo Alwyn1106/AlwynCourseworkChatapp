@@ -88,7 +88,7 @@ public class EchoServer extends Thread {
 
             for (i = 0; i <= (getClientList().size() - 1); i++) {
                 if (getClientList().get(i).getClientName().equals(name)) {
-                    //getClientList().get(i).setExit(); gsafga
+
                     sleep(100);
                     System.out.println(name + " on " + getClientList().get(i).getSocket() + " has been disconnected");
                     getClientList().get(i).getSocket().close();

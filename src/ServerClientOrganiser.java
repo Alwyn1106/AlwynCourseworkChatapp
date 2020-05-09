@@ -9,7 +9,6 @@ public class ServerClientOrganiser extends Thread {
 
     private Socket s;
     private String name;
-    private volatile boolean exit = false;
 
     public ServerClientOrganiser(Socket s, String name){
         this.s = s;
@@ -18,7 +17,6 @@ public class ServerClientOrganiser extends Thread {
 
     }
 
-    public  void setExit() { exit = true; }
 
     public Socket getSocket(){
         return s;
@@ -45,7 +43,7 @@ public class ServerClientOrganiser extends Thread {
 
             String inputLine = inp.readLine();
 
-            while(!exit) {
+            while(true) {
 
                 // accept a message, also blocks until it receives something through the input stream of the port
 
