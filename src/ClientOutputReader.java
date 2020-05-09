@@ -23,37 +23,25 @@ public class ClientOutputReader extends Thread {
                         new InputStreamReader(socket.getInputStream()));
 
                 fromServer = clientInput.readLine();
-                if (fromServer.equals(null)) {
-                }
-                else {
 
-
-                    while (true) {
+                    while (!clientInput.equals(null)) {
                         System.out.println(fromServer);
                         fromServer = clientInput.readLine();
-                        if(fromServer.equals(null)) {
+                        if (fromServer.equals(null)) {
                             break;
                         }
                     }
-                }
 
             } catch (IOException ioe) {
-                ioe.printStackTrace();
+                System.out.println("Socket disconnected...");
             }
+
             catch (NullPointerException ne){
-                System.out.println("The Server has been shut down and this client will now be closed");
+                System.out.println("The Server has been shut down, disconnecting");
                 System.exit(0);
             }
 
     }
-    /*public void closeInputStream() {
-        try {
-            socket.getInputStream().close();
-        }
-        catch(IOException ioe){
-            ioe.printStackTrace();
-        }
 
-    } */
 
 }

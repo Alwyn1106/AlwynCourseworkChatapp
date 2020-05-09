@@ -3,11 +3,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class ClientCmdReader extends Thread{
 
     private Socket socket;
-    private volatile boolean stop = false;
+    private boolean stop = false;
+
+    // This is the constructor - passed Socket value by EchoClient for each thread initiated
 
     public ClientCmdReader(Socket socket) {
 
@@ -35,6 +38,7 @@ public class ClientCmdReader extends Thread{
 
 
                     while(!stop) {
+
                         clientOutput.println(userInput);
                         // this is a blocking call that waits for an input from the command line
                         userInput = cmd.readLine();
@@ -46,24 +50,23 @@ public class ClientCmdReader extends Thread{
 
                 }
 
+                try {
+                    socket.close();
+                } catch (SocketException se) {
+                    se.printStackTrace();
+                }
+
                 System.out.println("The client has opted to terminate connection with the server...");
-                System.exit(0);
+
 
             } catch (IOException ioe) {
                 ioe.printStackTrace();
             }
+            finally {
+                System.exit(0);
+            }
     }
 
 
-
-    /*public void closeCmdReader() {
-        try {
-            socket.getOutputStream().close();
-        }
-        catch(IOException ioe){
-            ioe.printStackTrace();
-        }
-
-    } */
 
 }

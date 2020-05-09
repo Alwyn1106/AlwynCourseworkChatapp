@@ -30,9 +30,7 @@ public class EchoClient extends Thread {
     }
 
 
-    public Socket retrieveSocket(){
-        return socket;
-    }
+
 
     @Override
     public void run() {
@@ -40,23 +38,12 @@ public class EchoClient extends Thread {
 
         System.out.println("Please insert text:");
 
-        ClientCmdReader inp = new ClientCmdReader(socket);
-        ClientOutputReader outreader = new ClientOutputReader(socket);
+            ClientCmdReader inp = new ClientCmdReader(socket);
+            ClientOutputReader outreader = new ClientOutputReader(socket);
             // forms output stream to the server into lines of text that can be read
-
-
 
             inp.start();
             outreader.start();
-
-        try {
-            inp.join();
-
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
 
 
 

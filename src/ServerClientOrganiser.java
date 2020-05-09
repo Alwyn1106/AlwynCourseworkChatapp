@@ -42,17 +42,25 @@ public class ServerClientOrganiser extends Thread {
                     new InputStreamReader(s.getInputStream()));
 
             String inputLine = inp.readLine();
+            try {
 
-            while(true) {
+                while (!inputLine.equals(null)) {
 
-                // accept a message, also blocks until it receives something through the input stream of the port
+                    // accept a message, also blocks until it receives something through the input stream of the port
 
-                            System.out.println(name + " has sent this via input stream: " + inputLine);
-                            EchoServer.sendtoclients(name + ": " + inputLine);
-                            inputLine = inp.readLine();
+                    System.out.println(name + " has sent this via input stream: " + inputLine);
+                    EchoServer.sendtoclients(name + ": " + inputLine);
+                    inputLine = inp.readLine();
 
+                }
 
             }
+            catch(NullPointerException ne){
+                System.out.println(name + " has opted to disconnect from the server");
+                EchoServer.RemoveAClient(name);
+            }
+
+            System.out.println(name + " has been terminated");
 
 
 
