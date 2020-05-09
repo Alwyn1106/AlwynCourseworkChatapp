@@ -31,11 +31,8 @@ public class ClientCmdReader extends Thread{
                 String userInput = cmd.readLine();
 
 
-                if (userInput.equals("quit")) {
-                    EchoClient.setExit();
+                if (!userInput.equals("quit")) {
 
-                }
-                else {
 
                     while(!stop) {
                         clientOutput.println(userInput);
@@ -43,12 +40,12 @@ public class ClientCmdReader extends Thread{
                         userInput = cmd.readLine();
 
                         if (userInput.equals("quit")) {
-                            EchoClient.setExit();
-                            stopRun();
+                            stop = true;
                         }
                     }
 
                 }
+
                 System.out.println("The client has opted to terminate connection with the server...");
                 System.exit(0);
 
@@ -58,12 +55,8 @@ public class ClientCmdReader extends Thread{
     }
 
 
-    public void stopRun(){
-        stop = true;
 
-    }
-
-    public void closeCmdReader() {
+    /*public void closeCmdReader() {
         try {
             socket.getOutputStream().close();
         }
@@ -71,6 +64,6 @@ public class ClientCmdReader extends Thread{
             ioe.printStackTrace();
         }
 
-    }
+    } */
 
 }

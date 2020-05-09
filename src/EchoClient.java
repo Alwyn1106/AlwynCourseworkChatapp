@@ -10,7 +10,7 @@ public class EchoClient extends Thread {
     private String address;
     private int port;
     private Socket socket;
-    private static boolean exit = false;
+
 
 
 
@@ -29,9 +29,6 @@ public class EchoClient extends Thread {
 
     }
 
-    public static void setExit(){
-        exit = true;
-    }
 
     public Socket retrieveSocket(){
         return socket;
@@ -60,11 +57,7 @@ public class EchoClient extends Thread {
             e.printStackTrace();
         }
 
-        if (exit){
-            //inp.stopRun();
-            outreader.closeInputStream(); // closes the output stream which will be on a blocking code, which thows an IO exception for the outreader thread which confirms to the client that they are disconnected
-            //ServerClientOrganiser.setExit();
-        }
+
 
 
         }

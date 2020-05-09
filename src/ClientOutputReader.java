@@ -31,7 +31,7 @@ public class ClientOutputReader extends Thread {
                     while (true) {
                         System.out.println(fromServer);
                         fromServer = clientInput.readLine();
-                        if (fromServer.equals(null)) {
+                        if(fromServer.equals(null)) {
                             break;
                         }
                     }
@@ -46,7 +46,7 @@ public class ClientOutputReader extends Thread {
             }
 
     }
-    public void closeInputStream() {
+    /*public void closeInputStream() {
         try {
             socket.getInputStream().close();
         }
@@ -54,7 +54,6 @@ public class ClientOutputReader extends Thread {
             ioe.printStackTrace();
         }
 
-    }
-
+    } */
 
 }
