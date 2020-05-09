@@ -25,7 +25,6 @@ public class ServerCmdReader extends Thread {
                     if (userInput.equals("EXIT")) {
                         System.out.println("Closing Server...");
                         EchoServer.CloseClients();
-
                         break;
                     }
                     userInput = cmd.readLine();
@@ -34,7 +33,7 @@ public class ServerCmdReader extends Thread {
         catch (IOException e) {
             e.printStackTrace();
         }
-        //System.out.println("Shutdown Complete...");
+
         System.exit(0);
 
 

@@ -48,11 +48,8 @@ public class ServerClientOrganiser extends Thread {
                 // accept a message, also blocks until it receives something through the input stream of the port
 
                             System.out.println(name + " has sent this via input stream: " + inputLine);
-                            // send the message back
                             EchoServer.sendtoclients(name + ": " + inputLine);
                             inputLine = inp.readLine();
-                            //join();
-
 
 
             }

@@ -54,7 +54,7 @@ public class EchoClient extends Thread {
 
         try {
             inp.join();
-            //outreader.join();
+
 
         } catch (InterruptedException e) {
             e.printStackTrace();
