@@ -63,7 +63,7 @@ public class EchoClient extends Thread {
         if (exit){
             //inp.stopRun();
             outreader.closeInputStream(); // closes the output stream which will be on a blocking code, which thows an IO exception for the outreader thread which confirms to the client that they are disconnected
-            ServerClientOrganiser.setExit();
+            //ServerClientOrganiser.setExit();
         }
 
 

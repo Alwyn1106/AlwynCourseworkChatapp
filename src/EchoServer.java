@@ -87,7 +87,9 @@ public class EchoServer extends Thread {
             int i;
 
             for (i = 0; i <= (getClientList().size() - 1); i++) {
-                if (getClientList().get(i).getClientName() == name) {
+                if (getClientList().get(i).getClientName().equals(name)) {
+                    //getClientList().get(i).setExit();
+                    sleep(100);
                     System.out.println(name + " on " + getClientList().get(i).getSocket() + " has been disconnected");
                     getClientList().get(i).getSocket().close();
                     getClientList().remove(i);
@@ -96,8 +98,9 @@ public class EchoServer extends Thread {
             }
 
         }
-        catch (IOException ioe) {
+        catch (IOException | InterruptedException ioe) {
             ioe.printStackTrace();
+
         }
 
     }

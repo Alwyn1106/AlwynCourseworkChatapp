@@ -9,8 +9,7 @@ public class ServerClientOrganiser extends Thread {
 
     private Socket s;
     private String name;
-
-    private static boolean exit = false;
+    private volatile boolean exit = false;
 
     public ServerClientOrganiser(Socket s, String name){
         this.s = s;
@@ -19,7 +18,7 @@ public class ServerClientOrganiser extends Thread {
 
     }
 
-    public static void setExit() { exit = true; }
+    public  void setExit() { exit = true; }
 
     public Socket getSocket(){
         return s;
@@ -50,11 +49,13 @@ public class ServerClientOrganiser extends Thread {
 
                 // accept a message, also blocks until it receives something through the input stream of the port
 
+                            System.out.println(name + " has sent this via input stream: " + inputLine);
+                            // send the message back
+                            EchoServer.sendtoclients(name + ": " + inputLine);
+                            inputLine = inp.readLine();
+                            //join();
 
-                    System.out.println(name + " has sent this via input stream: " + inputLine);
-                    // send the message back
-                    EchoServer.sendtoclients(name + ": " + inputLine);
-                    inputLine = inp.readLine();
+
 
             }
 
@@ -63,11 +64,14 @@ public class ServerClientOrganiser extends Thread {
 
         } catch (IOException ioe) {
 
-           System.out.println(name + " has been terminated from the client's side");
+           System.out.println(name + " has been terminated");
                 EchoServer.RemoveAClient(getClientName());
         }
 
+
+
     }
+
 
 
 }
