@@ -1,6 +1,6 @@
 // This is a main for the Client programme
 import java.lang.*;
-import java.net.Socket;
+
 
 public class ChatClient extends Thread {
 
