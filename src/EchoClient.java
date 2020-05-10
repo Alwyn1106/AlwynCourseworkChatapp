@@ -20,13 +20,15 @@ public class EchoClient extends Thread {
 
     public EchoClient(String address, int port) {
         try {
-            //this.address = address;
-            //this.port = port;
+
             socket = new Socket(address, port);
             start();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.print("Please ensure there is a corresponding server for the client before attempting to run the programme");
+            System.out.print("\n");
+            System.out.println("Either the server has not been started or the arguments given the client (for port and or address) are invalid");
+            System.exit(-1);
         }
 
         System.out.println("Please Insert Text:");

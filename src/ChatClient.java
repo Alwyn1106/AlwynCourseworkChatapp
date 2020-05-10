@@ -1,4 +1,5 @@
 // This is a main for the Client programme
+import java.io.IOException;
 import java.lang.*;
 import java.net.ConnectException;
 
@@ -36,13 +37,8 @@ public class ChatClient extends Thread {
                 System.out.println ("The arguments given have not been recognised. The programme will initiate with default values");
             }
         }
-
-        try {
             EchoClient client = new EchoClient(address, port);
-        }
-        catch (NullPointerException ne) {
-            System.out.println("There is not an activated corresponding server running. Please run the server before trying to connect a client");
-        }
+
 
     }
 
