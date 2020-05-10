@@ -4,13 +4,13 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.lang.*;
-import java.net.SocketException;
+
 
 public class EchoClient extends Thread {
-    private String address;
-    private int port;
+    //private String address;
+    // int port;
     private Socket socket;
-    private boolean stop = false;
+    private volatile boolean stop = false;
     private String fromServer;
 
 
@@ -20,8 +20,8 @@ public class EchoClient extends Thread {
 
     public EchoClient(String address, int port) {
         try {
-            this.address = address;
-            this.port = port;
+            //this.address = address;
+            //this.port = port;
             socket = new Socket(address, port);
             start();
 
@@ -44,10 +44,14 @@ public class EchoClient extends Thread {
             String userInput = cmd.readLine();
 
 
-            if (!userInput.equals("quit")) {
+            if (userInput.equals("quit")) {
+                stop = true;
+            }
+
+            else{
 
 
-                while(!stop) {
+                while (!stop) {
 
                     clientOutput.println(userInput);
                     // this is a blocking call that waits for an input from the command line
@@ -55,27 +59,27 @@ public class EchoClient extends Thread {
 
                     if (userInput.equals("quit")) {
                         stop = true;
+                        break;
                     }
                 }
 
             }
 
-            try {
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        } finally {
+
+           try {
                 socket.close();
-            } catch (SocketException se) {
-                se.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
             System.out.println("The client has opted to terminate connection with the server...");
 
 
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
         }
-        finally {
-            System.exit(0);
-        }
-
 
     }
 
@@ -88,9 +92,11 @@ public class EchoClient extends Thread {
 
                 fromServer = clientInput.readLine();
 
-                while (!clientInput.equals(null)) {
+                while (!fromServer.equals(null)) {
                     System.out.println(fromServer);
-                    fromServer = clientInput.readLine();
+
+                        fromServer = clientInput.readLine();
+
                     if (fromServer.equals(null)) {
                         break;
                     }

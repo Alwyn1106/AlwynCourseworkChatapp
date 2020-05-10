@@ -17,7 +17,6 @@ public class ServerClientOrganiser extends Thread {
 
     }
 
-
     public Socket getSocket(){
         return s;
     }

@@ -13,10 +13,22 @@ public class ChatClient extends Thread {
                 if (isInteger(args[1])) {
                     port = Integer.parseInt(args[1]);
                 } else {
-                    System.out.println("The inputted port value is not a recognised integer");
+                    System.out.println("The inputted port value is not a recognised integer, initialising with default port");
                 }
             } else if (args[0].equals("-cca") && args[1].length() == 14) {
                 address = args[1];
+            }
+            else{
+                System.out.println("The arguments inputted were not recognised, initialising with default values");
+            }
+        }
+        else if (args.length == 4){
+            if(args[0].equals("−cca") && args[2].equals("-ccp")) {
+                port = Integer.parseInt(args[3]);
+                address = args[1];
+            }
+            else{
+                System.out.println("The inputted arguments were not recognised, initialising with default values");
             }
         }
 
