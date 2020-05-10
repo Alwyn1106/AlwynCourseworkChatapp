@@ -10,7 +10,6 @@ public class ChatClient extends Thread {
         int port = 14001;
         String address = "localhost";
 
-
         if (args.length > 0) {
             if (args.length == 2) {
                 if (args[0].equals("-ccp") && args[1].length() == 5) {
