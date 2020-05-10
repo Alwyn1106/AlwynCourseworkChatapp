@@ -4,7 +4,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-
 import java.util.ArrayList;
 
 
@@ -34,7 +33,7 @@ public class EchoServer extends Thread {
                 ServerClientOrganiser sco = new ServerClientOrganiser(client, "client-" + ID);
                 getClientList().add(sco);
                 sco.start();
-                //start();
+
             }
 
         }
