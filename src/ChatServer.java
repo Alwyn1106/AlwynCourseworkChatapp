@@ -24,7 +24,7 @@ public class ChatServer extends Thread {
         }
 
         EchoServer server = new EchoServer(port);
-        server.start();
+        //server.start();
     }
 
     public static boolean isInteger(String s) {

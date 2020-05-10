@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -23,6 +25,17 @@ public class EchoServer extends Thread {
             // Creates a new Server Socket for the clients to connect to
             ss = new ServerSocket(port);
             ID=0;
+            start();
+
+            while(true) {
+                // listen for client, blocks waiting for the client to be found and names the socket that is connected with the client before progressing code
+                Socket client = ss.accept();
+                ID++;
+                ServerClientOrganiser sco = new ServerClientOrganiser(client, "client-" + ID);
+                getClientList().add(sco);
+                sco.start();
+                //start();
+            }
 
         }
         catch (IOException e) {
@@ -32,25 +45,29 @@ public class EchoServer extends Thread {
     }
     @Override
     public void run() {
-        ServerCmdReader serverinp = new ServerCmdReader();
-        serverinp.start();
 
-        try
-        {
-            while(true) {
-                // listen for client, blocks waiting for the client to be found and names the socket that is connected with the client before progressing code
-                Socket client = ss.accept();
-                ID++;
-                ServerClientOrganiser sco = new ServerClientOrganiser(client, "client-" + ID);
-                getClientList().add(sco);
-                sco.start();
+        BufferedReader cmd = new BufferedReader(
+                new InputStreamReader(System.in));
 
+        try {
+            String userInput = cmd.readLine();
+
+            while (true) {
+
+                if (userInput.equals("EXIT")) {
+                    System.out.println("Closing Server...");
+                    CloseClients();
+                    break;
+                }
+                userInput = cmd.readLine();
             }
         }
-        catch(IOException ioe)
-        {
-            ioe.printStackTrace();
+        catch (IOException e) {
+            e.printStackTrace();
         }
+
+        System.exit(0);
+
     }
 
     public static synchronized ArrayList<ServerClientOrganiser> getClientList() {
