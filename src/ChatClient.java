@@ -21,7 +21,7 @@ public class ChatClient extends Thread {
         }
 
             EchoClient client = new EchoClient(address, port);
-            client.start();
+
 
     }
 
