@@ -38,7 +38,12 @@ public class ChatClient extends Thread {
             }
         }
 
-        EchoClient client = new EchoClient(address, port);
+        try {
+            EchoClient client = new EchoClient(address, port);
+        }
+        catch (NullPointerException ne) {
+            System.out.println("There is not an activated corresponding server running. Please run the server before trying to connect a client");
+        }
 
     }
 

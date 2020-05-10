@@ -19,7 +19,7 @@ public class ChatServer extends Thread {
                     System.out.println("The inputted port value is not a recognised integer");
                 }
             } else {
-                System.out.println("The argument for selecting a port value was not entered correctly");
+                System.out.println("The argument for selecting a port value was not entered correctly. Initiating the server with default values");
             }
         }
 
