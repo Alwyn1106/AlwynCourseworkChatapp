@@ -1,4 +1,7 @@
 // This is a main for the Client programme
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.*;
 
 
@@ -7,7 +10,7 @@ public class ChatClient extends Thread {
     private static ClientLogic client;
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
         int port = 14001;
         String address = "localhost";
 
@@ -38,7 +41,7 @@ public class ChatClient extends Thread {
             }
         }
 
-            client = new ClientLogic(address, port);
+        client = new ClientLogic(address, port);
 
     }
 

@@ -12,6 +12,7 @@ public class ServerLogic extends Thread {
     private ServerSocket ss;
     private int ID;
     private static ArrayList<ServerClientOrganiser> clientlist = new ArrayList<>();
+    private Socket client;
 
 
 
@@ -29,7 +30,7 @@ public class ServerLogic extends Thread {
 
             while(true) {
                 // listen for client, blocks waiting for the client to be found and names the socket that is connected with the client before progressing code
-                Socket client = ss.accept();
+                client = ss.accept();
                 ID++;
                 ServerClientOrganiser sco = new ServerClientOrganiser(client, "client-" + ID);
                 getClientList().add(sco);
@@ -55,6 +56,7 @@ public class ServerLogic extends Thread {
 
         try {
             String userInput = cmd.readLine();
+
 
             while (true) {
 
@@ -105,7 +107,6 @@ public class ServerLogic extends Thread {
 
         try {
 
-
             int i;
 
             for (i = 0; i <= (getClientList().size() - 1); i++) {
@@ -139,5 +140,6 @@ public class ServerLogic extends Thread {
 
             }
     }
+
 
 }

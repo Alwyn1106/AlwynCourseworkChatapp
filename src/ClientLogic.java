@@ -12,26 +12,28 @@ public class ClientLogic extends Thread {
     private Socket socket;
     private volatile boolean stop = false;
     private String fromServer;
+    private String name;
 
 
 
 
     // This is the constructor for the client. This assigns the two values passed to it by the argument.
 
-    public ClientLogic(String address, int port) {
+    public ClientLogic(String address, int port)  {
         try {
 
             socket = new Socket(address, port);
             start();
 
         } catch (IOException e) {
-            System.out.print("Please ensure there is a corresponding server for the client before attempting to run the programme");
-            System.out.print("\n");
+            System.out.println("Please ensure there is a corresponding server for the client before attempting to run the programme");
             System.out.println("Either the server has not been started or the arguments given the client (for port and or address) are invalid");
             System.exit(-1);
         }
 
-        System.out.println("Please Insert Text:");
+        System.out.println("Please insert your client name: ");
+
+
 
         try {
             // forms input that is given to the system's command line into lines of text that can be read
@@ -43,16 +45,22 @@ public class ClientLogic extends Thread {
                     socket.getOutputStream(), true);
 
             // naming variables for user input and what the server will send back
+
             String userInput = cmd.readLine();
 
 
             if (userInput.equals("quit")) {
                 stop = true;
-                //ChatClient.InterruptClient();
+
             }
 
             else{
 
+
+                clientOutput.println(userInput);
+                name = userInput;
+
+                System.out.println("Welcome " + name + " Please insert text:");
 
                 while (!stop) {
 
@@ -117,8 +125,6 @@ public class ClientLogic extends Thread {
             }
 
         }
-
-
 
 
 }

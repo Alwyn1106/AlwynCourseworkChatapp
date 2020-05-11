@@ -23,6 +23,8 @@ public class ServerClientOrganiser extends Thread {
         return name;
     }
 
+    public void setClientName(String name) {this.name = name; }
+
     @Override
     public void run() {
 
@@ -38,7 +40,11 @@ public class ServerClientOrganiser extends Thread {
             BufferedReader inp = new BufferedReader(
                     new InputStreamReader(s.getInputStream()));
 
+            name = inp.readLine();
+
             String inputLine = inp.readLine();
+
+            inputLine = inp.readLine();
             try {
 
                 while (!inputLine.equals(null)) {
@@ -70,9 +76,6 @@ public class ServerClientOrganiser extends Thread {
         }
 
 
-
     }
-
-
 
 }
