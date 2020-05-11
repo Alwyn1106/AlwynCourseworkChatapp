@@ -1,9 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
 
 public class ServerClientOrganiser extends Thread {
 
@@ -48,7 +46,7 @@ public class ServerClientOrganiser extends Thread {
                     // accept a message, also blocks until it receives something through the input stream of the port
 
                     System.out.println(name + " has sent this via input stream: " + inputLine);
-                    EchoServer.sendtoclients(name + ": " + inputLine);
+                    ServerLogic.sendtoclients(name + ": " + inputLine);
                     inputLine = inp.readLine();
 
                 }
@@ -56,7 +54,8 @@ public class ServerClientOrganiser extends Thread {
             }
             catch(NullPointerException ne){
                 System.out.println(name + " has opted to disconnect from the server");
-                EchoServer.RemoveAClient(name);
+                ServerLogic.RemoveAClient(name);
+
             }
 
             System.out.println(name + " has been terminated");
@@ -67,7 +66,7 @@ public class ServerClientOrganiser extends Thread {
         } catch (IOException ioe) {
 
            System.out.println(name + " has been terminated");
-                EchoServer.RemoveAClient(getClientName());
+                ServerLogic.RemoveAClient(getClientName());
         }
 
 

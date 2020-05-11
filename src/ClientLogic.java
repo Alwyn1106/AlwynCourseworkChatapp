@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.lang.*;
 
 
-public class EchoClient extends Thread {
+public class ClientLogic extends Thread {
     //private String address;
     // int port;
     private Socket socket;
@@ -18,7 +18,7 @@ public class EchoClient extends Thread {
 
     // This is the constructor for the client. This assigns the two values passed to it by the argument.
 
-    public EchoClient(String address, int port) {
+    public ClientLogic(String address, int port) {
         try {
 
             socket = new Socket(address, port);
@@ -48,6 +48,7 @@ public class EchoClient extends Thread {
 
             if (userInput.equals("quit")) {
                 stop = true;
+                //ChatClient.InterruptClient();
             }
 
             else{
@@ -61,7 +62,8 @@ public class EchoClient extends Thread {
 
                     if (userInput.equals("quit")) {
                         stop = true;
-                        break;
+                        //ChatClient.InterruptClient();
+
                     }
                 }
 
@@ -99,13 +101,14 @@ public class EchoClient extends Thread {
 
                         fromServer = clientInput.readLine();
 
-                    if (fromServer.equals(null)) {
+                   /* if (fromServer.equals(null)) {
                         break;
-                    }
+                    } */
                 }
 
             } catch (IOException ioe) {
                 System.out.println("Socket disconnected...");
+                //System.exit(0);
             }
 
             catch (NullPointerException ne){

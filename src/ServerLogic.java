@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 
-public class EchoServer extends Thread {
+public class ServerLogic extends Thread {
     private int port;
     private ServerSocket ss;
     private int ID;
@@ -16,13 +16,14 @@ public class EchoServer extends Thread {
 
 
     // This is the constructor for the Server. This assigns the port value passed by the argument and initiates the run function
-    public EchoServer(int port) {
+    public ServerLogic(int port) {
 
         try {
-            System.out.println("Waiting for clients...");
+
             this.port = port;
             // Creates a new Server Socket for the clients to connect to
             ss = new ServerSocket(port);
+            System.out.println("Waiting for clients...");
             ID=0;
             start();
 
@@ -36,6 +37,10 @@ public class EchoServer extends Thread {
 
             }
 
+        }
+        catch (IllegalArgumentException iae) {
+            System.out.println("The port value given to the server is not valid. The programme will now terminate");
+            System.exit(1);
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -60,6 +65,7 @@ public class EchoServer extends Thread {
                 }
                 userInput = cmd.readLine();
             }
+
         }
         catch (IOException e) {
             e.printStackTrace();

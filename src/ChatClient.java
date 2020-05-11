@@ -1,10 +1,10 @@
 // This is a main for the Client programme
-import java.io.IOException;
 import java.lang.*;
-import java.net.ConnectException;
 
 
 public class ChatClient extends Thread {
+
+    private static ClientLogic client;
 
 
     public static void main(String[] args) {
@@ -37,7 +37,7 @@ public class ChatClient extends Thread {
                 System.out.println ("The arguments given have not been recognised. The programme will initiate with default values");
             }
         }
-            EchoClient client = new EchoClient(address, port);
+            client = new ClientLogic(address, port);
 
 
     }
@@ -49,6 +49,10 @@ public class ChatClient extends Thread {
         } catch (NumberFormatException ex) {
             return false;
         }
+    }
+
+    public static void InterruptClient() {
+        client.interrupt();
     }
 
 

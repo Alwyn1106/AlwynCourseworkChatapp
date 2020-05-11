@@ -23,7 +23,7 @@ public class ChatServer extends Thread {
             }
         }
 
-        EchoServer server = new EchoServer(port);
+        ServerLogic server = new ServerLogic(port);
 
     }
 
