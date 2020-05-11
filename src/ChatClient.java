@@ -37,8 +37,8 @@ public class ChatClient extends Thread {
                 System.out.println ("The arguments given have not been recognised. The programme will initiate with default values");
             }
         }
-            client = new ClientLogic(address, port);
 
+            client = new ClientLogic(address, port);
 
     }
 

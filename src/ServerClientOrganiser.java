@@ -53,12 +53,12 @@ public class ServerClientOrganiser extends Thread {
 
             }
             catch(NullPointerException ne){
-                System.out.println(name + " has opted to disconnect from the server");
+                System.out.println(name + " has been terminated");
                 ServerLogic.RemoveAClient(name);
 
             }
 
-            System.out.println(name + " has been terminated");
+            //System.out.println(name + " has been terminated");
 
 
 
