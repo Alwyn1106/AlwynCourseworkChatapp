@@ -23,7 +23,7 @@ public class ClientLogic extends Thread {
         try {
 
             socket = new Socket(address, port);
-            start();
+
 
         } catch (IOException e) {
             System.out.println("Please ensure there is a corresponding server for the client before attempting to run the programme");
@@ -46,36 +46,41 @@ public class ClientLogic extends Thread {
 
             // naming variables for user input and what the server will send back
 
-            String userInput = cmd.readLine();
+            do {
+            String userName = cmd.readLine();
+            name = userName;
 
-
-            if (userInput.equals("quit")) {
-                stop = true;
-
+                if (name.length() >= 20){
+                    System.out.println("Please insert a name less than or equal to 20 characters");
+                }
             }
+            while (name.length() >= 20);
 
-            else{
+
+            clientOutput.println(name);
+
+            System.out.println("Welcome to the chat " + name);
+
+            start();
+            String userInput;
+            userInput = cmd.readLine();
+            //clientOutput.println(userInput);
 
 
-                clientOutput.println(userInput);
-                name = userInput;
+                    while (!stop) {
 
-                System.out.println("Welcome " + name + " Please insert text:");
+                        if (userInput.equals("quit")) {
+                            stop = true;
+                            break;
+                        }
 
-                while (!stop) {
-
-                    clientOutput.println(userInput);
-                    // this is a blocking call that waits for an input from the command line
-                    userInput = cmd.readLine();
-
-                    if (userInput.equals("quit")) {
-                        stop = true;
-                        //ChatClient.InterruptClient();
+                        clientOutput.println(userInput);
+                        // this is a blocking call that waits for an input from the command line
+                        userInput = cmd.readLine();
 
                     }
-                }
 
-            }
+
 
 
         } catch (IOException ioe) {

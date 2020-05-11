@@ -40,11 +40,15 @@ public class ServerClientOrganiser extends Thread {
             BufferedReader inp = new BufferedReader(
                     new InputStreamReader(s.getInputStream()));
 
+
             name = inp.readLine();
+
+
+            System.out.println("Client name defined as: " + name);
 
             String inputLine = inp.readLine();
 
-            inputLine = inp.readLine();
+            //inputLine = inp.readLine();
             try {
 
                 while (!inputLine.equals(null)) {
