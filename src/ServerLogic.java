@@ -82,7 +82,19 @@ public class ServerLogic extends Thread {
 
     }
 
+    public static void sendSingleClient(String message, int ID) {
 
+        try {
+            PrintWriter outp = new PrintWriter(
+                    getClientList().get(ID).getSocket().getOutputStream(), true);
+            outp.println(message);
+            System.out.println(getClientList().get(ID).getClientName() + " has received this via output stream: " + message);
+        }
+        catch(IOException ioe) {
+            ioe.printStackTrace();
+        }
+
+    }
 
     public static void sendtoclients(String output) {
         try {
@@ -96,8 +108,7 @@ public class ServerLogic extends Thread {
                 System.out.println(getClientList().get(i).getClientName() + " has received this via output stream: " + output);
             }
         }
-        catch(IOException ioe)
-        {
+        catch(IOException ioe) {
             ioe.printStackTrace();
         }
 

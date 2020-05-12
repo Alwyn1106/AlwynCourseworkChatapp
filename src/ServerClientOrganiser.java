@@ -56,8 +56,21 @@ public class ServerClientOrganiser extends Thread {
                     // accept a message, also blocks until it receives something through the input stream of the port
 
                     System.out.println(name + " has sent this via input stream: " + inputLine);
-                    ServerLogic.sendtoclients(name + ": " + inputLine);
-                    inputLine = inp.readLine();
+                    if (inputLine.length() > 7 && inputLine.substring(0,7).equals("PRIVATE")){
+                        int i;
+
+                        for (i = 0; i <= (ServerLogic.getClientList().size()-1); i++) {
+                            if (inputLine.contains(ServerLogic.getClientList().get(i).getClientName())) {
+                                ServerLogic.sendSingleClient(name + " " + inputLine, i);
+                                inputLine = inp.readLine();
+
+                            }
+                        }
+                    }
+                    else {
+                        ServerLogic.sendtoclients(name + ": " + inputLine);
+                        inputLine = inp.readLine();
+                    }
 
                 }
 
