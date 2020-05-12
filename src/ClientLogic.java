@@ -12,7 +12,7 @@ public class ClientLogic extends Thread {
     private Socket socket;
     private volatile boolean stop = false;
     private String fromServer;
-    private String name;
+    private boolean namevalid = true;
 
 
 
@@ -46,23 +46,10 @@ public class ClientLogic extends Thread {
 
             // naming variables for user input and what the server will send back
 
-            do {
-            String userName = cmd.readLine();
-            name = userName;
-
-                if (name.length() >= 20){
-                    System.out.println("Please insert a name less than or equal to 20 characters");
-                }
-            }
-            while (name.length() >= 20);
-
-
-            clientOutput.println(name);
-
-            System.out.println("Welcome to the chat " + name);
 
             start();
             String userInput;
+
             userInput = cmd.readLine();
             //clientOutput.println(userInput);
 
@@ -110,13 +97,11 @@ public class ClientLogic extends Thread {
                 fromServer = clientInput.readLine();
 
                 while (!fromServer.equals(null)) {
-                    System.out.println(fromServer);
 
+
+                        System.out.println(fromServer);
                         fromServer = clientInput.readLine();
 
-                   /* if (fromServer.equals(null)) {
-                        break;
-                    } */
                 }
 
             } catch (IOException ioe) {
@@ -130,6 +115,7 @@ public class ClientLogic extends Thread {
             }
 
         }
+
 
 
 }

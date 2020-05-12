@@ -152,5 +152,17 @@ public class ServerLogic extends Thread {
             }
     }
 
+    public static boolean InputtedNameExists(String name) {
+
+        int i;
+        for (i = 0; i <= (ServerLogic.getClientList().size()-1); i++) {
+            if (ServerLogic.getClientList().get(i).getClientName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
 }

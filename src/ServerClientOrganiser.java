@@ -1,12 +1,14 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ServerClientOrganiser extends Thread {
 
     private Socket s;
     private String name;
+    private boolean nameinputted = false;
 
     public ServerClientOrganiser(Socket s, String name){
         this.s = s;
@@ -41,7 +43,35 @@ public class ServerClientOrganiser extends Thread {
                     new InputStreamReader(s.getInputStream()));
 
 
-            name = inp.readLine();
+
+                PrintWriter outp = new PrintWriter(
+                        getSocket().getOutputStream(), true);
+
+                String propName;
+                propName = inp.readLine();
+
+                while(!nameinputted) {
+                    if (!ServerLogic.InputtedNameExists(propName) && propName.length() <= 20) {
+
+                        name = propName;
+                        nameinputted = true;
+                        outp.println("Welcome to the chat: " + name);
+
+                    } else if (ServerLogic.InputtedNameExists(propName)) {
+
+                        outp.println("The name " + propName + " already exists, please type a unique name");
+                        System.out.println("Sent error (proposed name exists) to : " + name);
+                        propName = inp.readLine();
+
+                    } else if (propName.length() >= 20) {
+                        outp.println("Please insert a name under or equal to 20 characters");
+                        System.out.println("Sent error (proposed name is too long) to: " + name);
+                        propName = inp.readLine();
+                    }
+                }
+
+
+
 
 
             System.out.println("Client name defined as: " + name);
@@ -61,7 +91,7 @@ public class ServerClientOrganiser extends Thread {
 
                         for (i = 0; i <= (ServerLogic.getClientList().size()-1); i++) {
                             if (inputLine.contains(ServerLogic.getClientList().get(i).getClientName())) {
-                                ServerLogic.sendSingleClient(name + " " + inputLine, i);
+                                ServerLogic.sendSingleClient(name + ": " + inputLine, i);
                                 inputLine = inp.readLine();
 
                             }
