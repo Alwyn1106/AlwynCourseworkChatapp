@@ -55,7 +55,7 @@ public class ServerClientOrganiser extends Thread {
 
                         name = propName;
                         nameinputted = true;
-                        outp.println("Welcome to the chat: " + name);
+                        outp.println("Welcome to the chat: " + name + ", please feel free to send and receive messages via the command line");
 
                     } else if (ServerLogic.InputtedNameExists(propName)) {
 

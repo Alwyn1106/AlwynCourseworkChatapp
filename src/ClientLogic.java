@@ -31,6 +31,9 @@ public class ClientLogic extends Thread {
             System.exit(-1);
         }
 
+        System.out.println("Welcome to the Chat");
+        System.out.println("Before we begin, note that inputting the string \"quit\" will terminate the programme");
+        System.out.println("Also, inputting the string PRIVATE followed by a space and another client's username will send your message privately to only the client who's username you have given");
         System.out.println("Please insert your client name: ");
 
 
